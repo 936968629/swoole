@@ -19,7 +19,7 @@ class Index
 
     public function login()
     {
-        Predis::getInstance()->set('wen','ww',120);
+        var_dump( Predis::getInstance()->set('wen','ww',120) );
         var_dump(Predis::getInstance()->get('wen') );
     }
 
