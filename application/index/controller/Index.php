@@ -1,7 +1,7 @@
 <?php
 namespace app\index\controller;
 
-use app\common\lib\ali\Sms;
+use app\common\lib\redis\Predis;
 
 class Index
 {
@@ -19,7 +19,8 @@ class Index
 
     public function login()
     {
-
+        Predis::getInstance()->set('wen','ww',120);
+        var_dump(Predis::getInstance()->get('wen') );
     }
 
     public function sms()

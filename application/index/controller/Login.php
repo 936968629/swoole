@@ -12,10 +12,12 @@ class Login extends Controller
     {
         $phoneNum = intval($_GET['phone_num']);
         $code = intval($_GET['code'] );
+
         Predis::getInstance()->set('wen',55,120 );
         $redisCode = Predis::getInstance()->get('wen' );
         var_dump( $redisCode );
         return;
+
         if(empty($phoneNum) || empty($code) ){
             return Util::show(config('code.error'),'error');
         }
@@ -41,6 +43,7 @@ class Login extends Controller
         }
 
     }
+
 
 
     public function sms()
