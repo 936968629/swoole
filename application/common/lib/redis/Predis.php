@@ -48,7 +48,12 @@ class Predis{
             return $this->redis->set($key, $va1ue);
         }
         echo 'key3';
-        var_dump($this->redis->setex($key, $time, $va1ue) );
+        try{
+            $this->redis->setex($key, $time, $va1ue);
+        }catch (\Exception $e){
+            var_dump($e);
+        }
+//        var_dump($this->redis->setex($key, $time, $va1ue) );
         return $this->redis->setex($key, $time, $va1ue);
     }
 
