@@ -24,7 +24,7 @@ class Index
         $result = $redis->connect(config('redis.host'), config('redis.port'), config('redis.out_time') );
         $redis->set('jie','jie123',120);
         var_dump( Predis::getInstance()->set('wen','ww',120) );
-//        var_dump(Predis::getInstance()->get('wen') );
+        var_dump(Predis::getInstance()->get('wen') );
     }
 
     public function sms()

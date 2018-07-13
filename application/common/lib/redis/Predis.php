@@ -18,7 +18,6 @@ class Predis{
         $this->redis = new \Redis();
         $result = $this->redis->connect(config('redis.host'), config('redis.port'), config('redis.out_time') );
         if($result === false){
-            echo '2';
             throw new \Exception('redis connect fail');
         }
     }
@@ -49,6 +48,7 @@ class Predis{
             return $this->redis->set($key, $va1ue);
         }
         echo 'key3';
+        var_dump($this->redis->setex($key, $time, $va1ue) );
         return $this->redis->setex($key, $time, $va1ue);
     }
 
