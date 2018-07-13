@@ -16,7 +16,12 @@ class Predis{
     private function __construct()
     {
         $this->redis = new \Redis();
-        $result = $this->redis->connect(config('redis.host'), config('redis.port'), config('redis.out_time') );
+        try{
+            $result = $this->redis->connect(config('redis.host'), config('redis.port'), config('redis.out_time') );
+        }catch (\Exception $e){
+            echo "redis connect fail";
+        }
+
         if($result === false){
             throw new \Exception('redis connect fail');
         }

@@ -33,7 +33,7 @@ class Send
             /**
             $redis = new \Redis();
             $redis->connect(config('redis.host'), config('redis.port') );
-            $redis->set(Redis::smsKey($phoneNum).$phoneNum, $code, config('redis.out_time') );
+            $redis->set(Redis::smsKey($phoneNum), $code, config('redis.out_time') );
             **/
             Predis::getInstance()->set(Redis::smsKey($phoneNum), $code, config('redis.out_time') );
             $res['ss'] = Predis::getInstance()->get(Redis::smsKey($phoneNum) );
