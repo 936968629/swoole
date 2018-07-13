@@ -10,7 +10,7 @@ class Predis{
     /*
      * 单例模式
      */
-    private static $_instance ;
+    private static $_instance = '';
 
     public $redis = "";
     private function __construct()
@@ -18,6 +18,7 @@ class Predis{
         $this->redis = new \Redis();
         $result = $this->redis->connect(config('redis.host'), config('redis.port'), config('redis.out_time') );
         if($result === false){
+            echo '2';
             throw new \Exception('redis connect fail');
         }
     }
