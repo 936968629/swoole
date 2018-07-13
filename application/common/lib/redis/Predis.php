@@ -41,20 +41,20 @@ class Predis{
         }
         echo 'key';
         if( is_array($value) ){
-            $va1ue = json_encode($value);
+            $value = json_encode($value);
         }
         echo 'key2';
         if(!$time){
-            return $this->redis->set($key, $va1ue);
+            return $this->redis->set($key, $value);
         }
         echo 'key3';
         try{
-            $this->redis->setex($key, $time, $va1ue);
+            $this->redis->setex($key, $time, $value);
         }catch (\Exception $e){
             var_dump($e);
         }
 //        var_dump($this->redis->setex($key, $time, $va1ue) );
-        return $this->redis->setex($key, $time, $va1ue);
+        return $this->redis->setex($key, $time, $value);
     }
 
     public function get($key){
