@@ -19,8 +19,12 @@ class Index
 
     public function login()
     {
-        var_dump( Predis::getInstance()->set('wen','ww',120) );
-        var_dump(Predis::getInstance()->get('wen') );
+
+        $redis = new \Redis();
+        $result = $redis->connect(config('redis.host'), config('redis.port'), config('redis.out_time') );
+        var_dump($result);
+//        var_dump( Predis::getInstance()->set('wen','ww',120) );
+//        var_dump(Predis::getInstance()->get('wen') );
     }
 
     public function sms()
