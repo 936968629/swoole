@@ -22,8 +22,8 @@ class Index
 
         $redis = new \Redis();
         $result = $redis->connect(config('redis.host'), config('redis.port'), config('redis.out_time') );
-        var_dump($result);
-//        var_dump( Predis::getInstance()->set('wen','ww',120) );
+        $redis->set('jie','jie123',120);
+        var_dump( Predis::getInstance()->set('wen','ww',120) );
 //        var_dump(Predis::getInstance()->get('wen') );
     }
 

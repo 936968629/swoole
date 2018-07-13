@@ -40,12 +40,15 @@ class Predis{
         if(!$key){
             return '';
         }
+        echo 'key';
         if( is_array($value) ){
             $va1ue = json_encode($value);
         }
+        echo 'key2';
         if(!$time){
             return $this->redis->set($key, $va1ue);
         }
+        echo 'key3';
         return $this->redis->setex($key, $time, $va1ue);
     }
 
