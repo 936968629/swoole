@@ -104,10 +104,10 @@
 			$.get(url, function (data) {
 			    console.log(data);
 				// TODO: 将下面3行代码删除
-				if (data.status == 'ok') {
+				if (data.status === 1) {
 					alert('发送完成');
 				}
-				 if (data.status != 'ok') {
+				 if (data.status !== 1) {
 					alert('错误');
 				 }
 			});
@@ -122,7 +122,7 @@
 //					console.log("https://www.easy-mock.com/mock/5ab1188bddac7967e4398146/example/query?" + formData);
 					// location.href='index.html';
 					console.log(data)
-					if(data.status == 1){
+					if(data.status === 1){
 
 					}else{
 
