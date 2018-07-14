@@ -42,7 +42,7 @@ class Ws {
      * @param $server
      */
     public function onStart($server) {
-        swoole_set_process_name("live_master");
+//        swoole_set_process_name("live_master");
     }
     /**
      * @param $server
@@ -115,6 +115,7 @@ class Ws {
                 ->send();
         }catch (\Exception $e) {
             // todo
+            echo 'error';
         }
 
         $res = ob_get_contents();
