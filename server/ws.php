@@ -50,6 +50,7 @@ class Ws {
      */
     public function onWorkerStart($server,  $worker_id) {
         // 定义应用目录
+        echo 1;
         define('APP_PATH', __DIR__ . '/../application/');
 //        define('APP_PATH', __DIR__ . '/../../../application/');
         // 加载框架里面的文件
@@ -106,6 +107,7 @@ class Ws {
 
 
         ob_start();
+        echo 2;
         // 执行应用并响应
         try {
             think\Container::get('app', [APP_PATH])
@@ -182,7 +184,7 @@ class Ws {
      */
     public function onClose($ws, $fd) {
         // fd del
-        \app\common\lib\redis\Predis::getInstance()->sRem(config('redis.live_game_key'), $fd);
+//        \app\common\lib\redis\Predis::getInstance()->sRem(config('redis.live_game_key'), $fd);
         echo "clientid:{$fd}\n";
     }
 
