@@ -19,7 +19,7 @@ class Ws {
         $this->ws->set(
             [
                 'enable_static_handler' => true,
-                'document_root' => "/home/work/hdtocs/swoole_mooc/thinkphp/public/static",
+                'document_root' => "/var/www/html/swoole/swoole/public/static",
                 'worker_num' => 4,
                 'task_worker_num' => 4,
             ]
