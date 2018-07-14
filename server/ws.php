@@ -102,7 +102,7 @@ class Ws {
             }
         }
 
-        $this->writeLog();
+//        $this->writeLog();
         $_POST['http_server'] = $this->ws;
 
 
