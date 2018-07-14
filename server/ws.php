@@ -56,7 +56,7 @@ class Ws {
         // 加载框架里面的文件
         //require __DIR__ . '/../thinkphp/base.php';
         require __DIR__ . '/../thinkphp/start.php';
-
+        echo 3;
 //        require __DIR__ . '/../../../thinkphp/start.php';
     }
 
