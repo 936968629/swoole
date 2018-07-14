@@ -135,7 +135,7 @@ class Ws {
         echo "ser-push-message:{$frame->data}\n";
         $ws->push($frame->fd, "server-push:".date("Y-m-d H:i:s"));
     }
-    
+
     /**
      * @param $serv
      * @param $taskId
