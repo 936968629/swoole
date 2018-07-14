@@ -21,26 +21,39 @@ class Send
 
         //随机数
         $code = rand(1000,9999);
-        try{
-            $result = Sms::sendSms($phoneNum, $code);
-        }catch (\Exception $e){
-            return Util::show(config('code.error'),'短信发送失败');
-        }
+
+        $taskData = [
+            'method' => 'sendSms',
+            'data' => [
+                'phone' => $phoneNum,
+                'code' => $code
+            ]
+
+        ];
+        $_POST['http_server']->task($taskData);
+        return Util::show(config('code.success'),'ok');
+//        try{
+//            $result = Sms::sendSms($phoneNum, $code);
+//        }catch (\Exception $e){
+//            return Util::show(config('code.error'),'短信发送失败');
+//        }
+
 //        header('Content-Type: text/plain; charset=utf-8');
-        if($result->Code === "OK"){
-            //redis保存
-//            $redis = new \Swoole\Coroutine\Redis();
-            /**
-            $redis = new \Redis();
-            $redis->connect(config('redis.host'), config('redis.port') );
-            $redis->set(Redis::smsKey($phoneNum), $code, config('redis.out_time') );
-            **/
-            Predis::getInstance()->set(Redis::smsKey($phoneNum), $code, config('redis.out_time') );
-            $res['ss'] = Predis::getInstance()->get(Redis::smsKey($phoneNum) );
-            return Util::show(config('code.success'),'ok',$res);
-        }else{
-            return Util::show(config('code.error'),'失败');
-        }
+
+//        if($result->Code === "OK"){
+//            //redis保存
+////            $redis = new \Swoole\Coroutine\Redis();
+//            /**
+//            $redis = new \Redis();
+//            $redis->connect(config('redis.host'), config('redis.port') );
+//            $redis->set(Redis::smsKey($phoneNum), $code, config('redis.out_time') );
+//            **/
+//            Predis::getInstance()->set(Redis::smsKey($phoneNum), $code, config('redis.out_time') );
+//            $res['ss'] = Predis::getInstance()->get(Redis::smsKey($phoneNum) );
+//            return Util::show(config('code.success'),'ok',$res);
+//        }else{
+//            return Util::show(config('code.error'),'失败');
+//        }
     }
 
     public function hello($name = 'ThinkPHP5')
