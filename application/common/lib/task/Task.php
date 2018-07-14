@@ -8,18 +8,36 @@
  */
 namespace app\common\lib\task;
 use app\common\lib\ali\Sms;
+use app\common\lib\Redis;
+use app\common\lib\redis\Predis;
 
 class Task{
     //异步发送短信
     public function sendSms($data){
-
+        $phoneNum = $data['phone'];
+        $code = $data['code'];
         try {
             $response = Sms::sendSms($data['phone'], $data['code']);
         }catch (\Exception $e) {
             // todo
             echo $e->getMessage();
+            return false;
         }
-        print_r($response);
+        //保存验证码
+        if($response->Code === "OK"){
+            //redis保存
+//            $redis = new \Swoole\Coroutine\Redis();
+            /**
+            $redis = new \Redis();
+            $redis->connect(config('redis.host'), config('redis.port') );
+            $redis->set(Redis::smsKey($phoneNum), $code, config('redis.out_time') );
+            **/
+            Predis::getInstance()->set(Redis::smsKey($phoneNum), $code, config('redis.out_time') );
+            $res['ss'] = Predis::getInstance()->get(Redis::smsKey($phoneNum) );
+        }else{
+            return false;
+        }
+        return true;
     }
 
 
