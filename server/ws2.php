@@ -1,28 +1,36 @@
 <?php
 /**
  * Created by PhpStorm.
+ * User: baidu
+ * Date: 18/3/27
+ * Time: 上午12:50
  */
 class Ws {
     CONST HOST = "0.0.0.0";
     CONST PORT = 8811;
+    CONST CHART_PORT = 8812;
 
     public $ws = null;
     public function __construct() {
+        // 获取 key 有值 del
         $this->ws = new swoole_websocket_server(self::HOST, self::PORT);
+
+//        $this->ws->listen(self::HOST, self::CHART_PORT, SWOOLE_SOCK_TCP);
 
         $this->ws->set(
             [
                 'enable_static_handler' => true,
                 'document_root' => "/var/www/html/swoole/swoole/public/static",
-                'worker_num' => 5,
+                'worker_num' => 4,
                 'task_worker_num' => 4,
             ]
         );
 
-        $this->ws->on("workerstart", [$this, 'onWorkerStart']);
-        $this->ws->on("request", [$this, 'onRequest']);
+        $this->ws->on("start", [$this, 'onStart']);
         $this->ws->on("open", [$this, 'onOpen']);
         $this->ws->on("message", [$this, 'onMessage']);
+        $this->ws->on("workerstart", [$this, 'onWorkerStart']);
+        $this->ws->on("request", [$this, 'onRequest']);
         $this->ws->on("task", [$this, 'onTask']);
         $this->ws->on("finish", [$this, 'onFinish']);
         $this->ws->on("close", [$this, 'onClose']);
@@ -32,14 +40,24 @@ class Ws {
 
     /**
      * @param $server
+     */
+    public function onStart($server) {
+//        swoole_set_process_name("live_master");
+    }
+    /**
+     * @param $server
      * @param $worker_id
      */
     public function onWorkerStart($server,  $worker_id) {
         // 定义应用目录
+        echo 1;
         define('APP_PATH', __DIR__ . '/../application/');
+//        define('APP_PATH', __DIR__ . '/../../../application/');
         // 加载框架里面的文件
-//        require __DIR__ . '/../thinkphp/base.php';
+        //require __DIR__ . '/../thinkphp/base.php';
         require __DIR__ . '/../thinkphp/start.php';
+        echo 3;
+//        require __DIR__ . '/../../../thinkphp/start.php';
     }
 
     /**
@@ -48,6 +66,11 @@ class Ws {
      * @param $response
      */
     public function onRequest($request, $response) {
+//        if($request->server['request_uri'] == '/favicon.ico') {
+//            $response->status(404);
+//            $response->end();
+//            return ;
+//        }
         $_SERVER  =  [];
         if(isset($request->server)) {
             foreach($request->server as $k => $v) {
@@ -66,6 +89,12 @@ class Ws {
                 $_GET[$k] = $v;
             }
         }
+        $_FILES = [];
+        if(isset($request->files)) {
+            foreach($request->files as $k => $v) {
+                $_FILES[$k] = $v;
+            }
+        }
         $_POST = [];
         if(isset($request->post)) {
             foreach($request->post as $k => $v) {
@@ -73,9 +102,12 @@ class Ws {
             }
         }
 
+//        $this->writeLog();
         $_POST['http_server'] = $this->ws;
 
+
         ob_start();
+        echo 2;
         // 执行应用并响应
         try {
             think\Container::get('app', [APP_PATH])
@@ -83,6 +115,7 @@ class Ws {
                 ->send();
         }catch (\Exception $e) {
             // todo
+            echo 'error';
         }
 
         $res = ob_get_contents();
@@ -91,7 +124,6 @@ class Ws {
     }
 
     /**
-     * 异步任务
      * @param $serv
      * @param $taskId
      * @param $workerId
@@ -103,7 +135,7 @@ class Ws {
         $obj = new app\common\lib\task\Task;
 
         $method = $data['method'];
-        $flag = $obj->$method($data['data']);
+        $flag = $obj->$method($data['data'], $serv);
         /*$obj = new app\common\lib\ali\Sms();
         try {
             $response = $obj::sendSms($data['phone'], $data['code']);
@@ -113,6 +145,16 @@ class Ws {
         }*/
 
         return $flag; // 告诉worker
+    }
+
+    /**
+     * @param $serv
+     * @param $taskId
+     * @param $data
+     */
+    public function onFinish($serv, $taskId, $data) {
+        echo "taskId:{$taskId}\n";
+        echo "finish-data-sucess:{$data}\n";
     }
 
     /**
@@ -135,16 +177,6 @@ class Ws {
         echo "ser-push-message:{$frame->data}\n";
         $ws->push($frame->fd, "server-push:".date("Y-m-d H:i:s"));
     }
-    
-    /**
-     * @param $serv
-     * @param $taskId
-     * @param $data
-     */
-    public function onFinish($serv, $taskId, $data) {
-        echo "taskId:{$taskId}\n";
-        echo "finish-data-sucess:{$data}\n";
-    }
 
     /**
      * close
@@ -152,8 +184,31 @@ class Ws {
      * @param $fd
      */
     public function onClose($ws, $fd) {
+        // fd del
+//        \app\common\lib\redis\Predis::getInstance()->sRem(config('redis.live_game_key'), $fd);
         echo "clientid:{$fd}\n";
+    }
+
+    /**
+     * 记录日志
+     */
+    public function writeLog() {
+        $datas = array_merge(['date' => date("Ymd H:i:s")],$_GET, $_POST, $_SERVER);
+
+        $logs = "";
+        foreach($datas as $key => $value) {
+            $logs .= $key . ":" . $value . " ";
+        }
+
+        swoole_async_writefile(APP_PATH.'../runtime/log/'.date("Ym")."/".date("d")."_access.log", $logs.PHP_EOL, function($filename){
+            // todo
+        }, FILE_APPEND);
+
     }
 }
 
 new Ws();
+
+// 20台机器    agent -> spark (计算) - 》 数据库   elasticsearch  hadoop
+
+// sigterm sigusr1 usr2
