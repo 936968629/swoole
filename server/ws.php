@@ -66,11 +66,11 @@ class Ws {
      * @param $response
      */
     public function onRequest($request, $response) {
-        if($request->server['request_uri'] == '/favicon.ico') {
-            $response->status(404);
-            $response->end();
-            return ;
-        }
+//        if($request->server['request_uri'] == '/favicon.ico') {
+//            $response->status(404);
+//            $response->end();
+//            return ;
+//        }
         $_SERVER  =  [];
         if(isset($request->server)) {
             foreach($request->server as $k => $v) {
