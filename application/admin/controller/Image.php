@@ -12,6 +12,9 @@ class Image
 {
     public function index()
     {
-        var_dump($_FILES);
+
+        $file = request()->file('file');
+        $info = $file->move('../public/upload');
+        var_dump($info);
     }
 }
