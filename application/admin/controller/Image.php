@@ -14,7 +14,7 @@ class Image
     {
 
         $file = request()->file('file');
-        $info = $file->move('../public/upload');
+        $info = $file->move('../public/static/upload');
         var_dump($info);
     }
 }
