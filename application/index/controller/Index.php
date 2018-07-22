@@ -7,7 +7,7 @@ class Index
 {
     public function index()
     {
-        echo '1';
+        echo '';
     }
 
     public function hello($name = 'ThinkPHP5')

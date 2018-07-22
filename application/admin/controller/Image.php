@@ -12,6 +12,6 @@ class Image
 {
     public function index()
     {
-
+        var_dump($_FILES);
     }
 }
