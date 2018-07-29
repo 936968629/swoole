@@ -9,7 +9,7 @@
 namespace app\index\controller;
 
 
-class chart
+class Chart
 {
     public function index()
     {
@@ -17,5 +17,8 @@ class chart
         foreach ($_POST['http_server']->ports[1]->connections as $fd) {
             $_POST['http_server']->push($fd,$fd);
         }
+//        foreach($_POST['http_server']->ports[1]->connections as $fd) {
+//            $_POST['http_server']->push($fd, $fd);
+//        }
     }
 }
