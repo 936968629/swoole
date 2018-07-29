@@ -13,6 +13,6 @@ class chart
 {
     public function index()
     {
-        
+
     }
 }

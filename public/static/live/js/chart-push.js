@@ -1,6 +1,7 @@
 /**
  * Created by Administrator on 2018/7/27 0027.
  */
+
 $(function () {
    $('#discuss').keydown(function (event) {
         if (event.keyCode == 13) {
@@ -11,7 +12,7 @@ $(function () {
                 'game_id':1
             };
             $.post(url,data,(result)=>{
-
+                $(this).val('');
             },'json');
         }
    })
