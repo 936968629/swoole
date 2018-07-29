@@ -5,10 +5,14 @@
 class Ws {
     CONST HOST = "0.0.0.0";
     CONST PORT = 8811;
+    CONST CHART_PORT = 8812;
 
     public $ws = null;
     public function __construct() {
         $this->ws = new swoole_websocket_server(self::HOST, self::PORT);
+
+        //监听多端口
+        $this->ws->listen(self::HOST, self::CHART_PORT, SWOOLE_SOCK_TCP);
 
         $this->ws->set(
             [
