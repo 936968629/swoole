@@ -14,7 +14,7 @@ class chart
     public function index()
     {
         //1指8812 0为8811
-        foreach ($_POST['http_server']->posts[1]->connections as $fd) {
+        foreach ($_POST['http_server']->ports[1]->connections as $fd) {
             $_POST['http_server']->push($fd,$fd);
         }
     }
