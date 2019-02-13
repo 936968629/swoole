@@ -4,7 +4,7 @@ $http = new swoole_http_server("0.0.0.0",9507);
 
 $http->set([
     'enable_static_handler' => true,
-    'document_root' => '/var/www/html/swoole/swoole/public/static',
+    'document_root' => '/data/www/swoole/public/static',
     'worker_num' => 5,
 ]);
 
