@@ -20,7 +20,7 @@ class Ws {
         $this->ws->set(
             [
                 'enable_static_handler' => true,
-                'document_root' => "/var/www/html/swoole/swoole/public/static",
+                'document_root' => "/data/www/swoole/public/static",
                 'worker_num' => 4,
                 'task_worker_num' => 4,
             ]
