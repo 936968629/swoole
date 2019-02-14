@@ -87,6 +87,7 @@
 		</div>
 		<button type="submit" class="submit-btn" id="submit-btn">进入平台</button>
 	</form>
+	<script src="js/common.js"></script>
 	<script>
 		$(function () {
 			var $back = $('#back');
@@ -98,7 +99,8 @@
 			if(phone_num === ''){
 			    return;
 			}
-			url = "http://118.24.112.162:9507?s=index/send/login&phone_num="+phone_num;
+			//url = "http://118.24.112.162:9507?s=index/send/login&phone_num="+phone_num;
+			url = httpUrl + "?s=index/send/login&phone_num="+phone_num;
 			$(this).html('已发送').attr('disabled', true);
 			// $.post()
 			$.get(url, function (data) {
@@ -118,7 +120,7 @@
 				event.preventDefault();
 				var formData = $('form').serialize();
 				// TODO: 请求后台接口跳转界面，前端跳转或者后台跳
-				$.get("http://118.24.112.162:9507?s=index/login/index&"+formData, function (data) {
+				$.get( httpUrl + "?s=index/login/index&"+formData, function (data) {
 //					console.log("https://www.easy-mock.com/mock/5ab1188bddac7967e4398146/example/query?" + formData);
 					// location.href='index.html';
 					console.log(data)
