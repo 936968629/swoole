@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Created by PhpStorm.
  * User: baidu
@@ -186,7 +186,7 @@ class Ws {
     public function onClose($ws, $fd) {
         // fd del
 //        \app\common\lib\redis\Predis::getInstance()->sRem(config('redis.live_game_key'), $fd);
-        echo "clientid:{$fd}\n";
+        echo "clientid close:{$fd}\n";
     }
 
     /**
