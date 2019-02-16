@@ -15,6 +15,9 @@ class Image
     public function index()
     {
         $file = request()->file('file');
+        if (empty($file)) {
+            return Util::show(config('code.error'), 'file object no found');
+        }
         $info = $file->move('../public/static/upload');
         if ($info) {
             $data = [
