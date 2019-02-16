@@ -107,7 +107,7 @@ class Ws {
 
 
         ob_start();
-        echo 2;
+//        echo 2;
         // 执行应用并响应
         try {
             think\Container::get('app', [APP_PATH])
