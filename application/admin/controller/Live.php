@@ -11,7 +11,7 @@ class Live
         //赛况入库
         //push到直播页面
 
-
+        $_POST['http_server']->push(2, 'hello-push-data');
 
     }
 }
