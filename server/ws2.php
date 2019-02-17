@@ -13,14 +13,12 @@ class Ws {
     public $ws = null;
     public function __construct() {
         // 获取 redis key 如果有值 del
-        define('APP_PATH', __DIR__ . '/../application/');
-        require __DIR__ . '/../thinkphp/start.php';
-        $clients = \app\common\lib\redis\Predis::getInstance()->sMembers(config('redis.live_game_key'));
-        if (!empty($clients)) {
-            foreach ($clients as $fd) {
-                \app\common\lib\redis\Predis::getInstance()->sRem(config('redis.live_game_key'), $fd);
-            }
-        }
+//        $clients = \app\common\lib\redis\Predis::getInstance()->sMembers(config('redis.live_game_key'));
+//        if (!empty($clients)) {
+//            foreach ($clients as $fd) {
+//                \app\common\lib\redis\Predis::getInstance()->sRem(config('redis.live_game_key'), $fd);
+//            }
+//        }
 
         $this->ws = new swoole_websocket_server(self::HOST, self::PORT);
 
