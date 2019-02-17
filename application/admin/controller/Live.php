@@ -1,6 +1,8 @@
 <?php
 namespace app\admin\controller;
 
+use app\common\lib\redis\Predis;
+
 class Live
 {
     /**
@@ -10,8 +12,12 @@ class Live
     {
         //赛况入库
         //push到直播页面  获取连接的用户
+        $clients = Predis::getInstance()->sMembers(config('redis.live_game_key'));
 
-        $_POST['http_server']->push(2, 'hello-push-data');
+        foreach ($clients as $fd) {
+            $_POST['http_server']->push($fd, 'hello-push-data11');
+        }
+
 
     }
 }

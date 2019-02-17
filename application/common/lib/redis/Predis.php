@@ -71,4 +71,9 @@ class Predis{
     {
         return $this->redis->sRem($key, $value);
     }
+
+    public function sMembers($key)
+    {
+        return $this->redis->sMembers($key);
+    }
 }

@@ -12,7 +12,14 @@ class Ws {
 
     public $ws = null;
     public function __construct() {
-        // 获取 key 有值 del
+        // 获取 redis key 如果有值 del
+        $clients = \app\common\lib\redis\Predis::getInstance()->sMembers(config('redis.live_game_key'));
+        if (!empty($clients)) {
+            foreach ($clients as $fd) {
+                \app\common\lib\redis\Predis::getInstance()->sRem(config('redis.live_game_key'), $fd);
+            }
+        }
+
         $this->ws = new swoole_websocket_server(self::HOST, self::PORT);
 
 //        $this->ws->listen(self::HOST, self::CHART_PORT, SWOOLE_SOCK_TCP);
