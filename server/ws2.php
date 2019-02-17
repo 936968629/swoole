@@ -13,12 +13,18 @@ class Ws {
     public $ws = null;
     public function __construct() {
         // 获取 redis key 如果有值 del
-//        $clients = \app\common\lib\redis\Predis::getInstance()->sMembers(config('redis.live_game_key'));
-//        if (!empty($clients)) {
-//            foreach ($clients as $fd) {
-//                \app\common\lib\redis\Predis::getInstance()->sRem(config('redis.live_game_key'), $fd);
-//            }
-//        }
+        $this->redis = new \Redis();
+        try{
+            $result = $this->redis->connect(config('redis.host'), config('redis.port'), config('redis.out_time') );
+        }catch (\Exception $e){
+            echo "redis connect fail";
+        }
+        $clients = $this->redis->sMembers(config('redis.live_game_key'));
+        if (!empty($clients)) {
+            foreach ($clients as $fd) {
+                $this->redis->sRem(config('redis.live_game_key'), $fd);
+            }
+        }
 
         $this->ws = new swoole_websocket_server(self::HOST, self::PORT);
 

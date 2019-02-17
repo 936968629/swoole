@@ -80,6 +80,6 @@ class Predis{
     public function __call($name, $arguments)
     {
         // TODO: Implement __call() method.
-        return $this->redis->$name($arguments);
+        return $this->redis->$name(...$arguments);
     }
 }
