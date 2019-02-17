@@ -76,4 +76,10 @@ class Predis{
     {
         return $this->redis->sMembers($key);
     }
+
+    public function __call($name, $arguments)
+    {
+        // TODO: Implement __call() method.
+        return $this->redis->$name($arguments);
+    }
 }
