@@ -19,10 +19,10 @@ class Ws {
         }catch (\Exception $e){
             echo "redis connect fail";
         }
-        $clients = $this->redis->sMembers(config('redis.live_game_key'));
+        $clients = $this->redis->sMembers('live_game_key');
         if (!empty($clients)) {
             foreach ($clients as $fd) {
-                $this->redis->sRem(config('redis.live_game_key'), $fd);
+                $this->redis->sRem('live_game_key', $fd);
             }
         }
 
