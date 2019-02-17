@@ -17,7 +17,7 @@ class Predis{
     {
         $this->redis = new \Redis();
         try{
-            $result = $this->redis->connect('127.0.0.1', 6379, 60*60*24*10 );
+            $result = $this->redis->connect(config('redis.host'), config('redis.port'), config('redis.out_time') );
         }catch (\Exception $e){
             echo "redis connect fail";
         }

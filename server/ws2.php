@@ -15,7 +15,7 @@ class Ws {
         // 获取 redis key 如果有值 del
         $this->redis = new \Redis();
         try{
-            $result = $this->redis->connect(config('redis.host'), config('redis.port'), config('redis.out_time') );
+            $result = $this->redis->connect('127.0.0.1', 6379, 60*60*24*10 );
         }catch (\Exception $e){
             echo "redis connect fail";
         }
