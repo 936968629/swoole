@@ -14,7 +14,7 @@ function getHttpUrl()
 
 function getWsUrl()
 {
-	return wsUrl
+	return wsUrl;
 }
 
 
