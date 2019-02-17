@@ -24,17 +24,23 @@ websocket.onerror = function (evt, e) {
 }
 
 function push(data) {
-    data = JSON.parse(data)
+    data = JSON.parse(data);
+
+
     var html = `<div class="frame">
 					<h3 class="frame-header">
-						<i class="icon iconfont icon-shijian"></i>第一节 02：30
+						<i class="icon iconfont icon-shijian"></i>第{$data.type}节 02：30
 					</h3>
 					<div class="frame-item">
 						<span class="frame-dot"></span>
-						<div class="frame-item-author">
-							<img src="./imgs/team1.png" width="20px" height="20px" /> 马刺
-						</div>
-						<p>08:44 test</p>
+						<div class="frame-item-author">`
+        if (data.logo) {
+            html += `<img src="{$data.logo}" width="20px" height="20px" /> {$data.title}`;
+        } else {
+            html += `{$data.title}`;
+        }
+        html += `</div>
+						<p>08:44 {$data.content}</p>
 						<p>08:44 test2</p>
 					</div>
 				</div>`;
