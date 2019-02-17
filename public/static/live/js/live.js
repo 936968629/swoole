@@ -24,5 +24,19 @@ websocket.onerror = function (evt, e) {
 }
 
 function push(data) {
-    
+    data = JSON.parse(data)
+    var html = `<div class="frame">
+					<h3 class="frame-header">
+						<i class="icon iconfont icon-shijian"></i>第一节 02：30
+					</h3>
+					<div class="frame-item">
+						<span class="frame-dot"></span>
+						<div class="frame-item-author">
+							<img src="./imgs/team1.png" width="20px" height="20px" /> 马刺
+						</div>
+						<p>08:44 test</p>
+						<p>08:44 test2</p>
+					</div>
+				</div>`;
+    $("#match-result").prepend(html);
 }
