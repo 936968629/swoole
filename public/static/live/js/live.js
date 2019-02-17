@@ -1,8 +1,8 @@
 /**
  * Created by Administrator on 2018/7/29 0029.
  */
-// var wsUrl = 'ws://118.24.112.162:8811';
-var wsUrl = getWsUrl();
+var wsUrl = 'ws://118.24.112.162:8811';
+// var wsUrl = getWsUrl();
 
 var websocket = new WebSocket(wsUrl);
 
