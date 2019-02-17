@@ -163,8 +163,8 @@ class Ws {
      * @param $request
      */
     public function onOpen($ws, $request) {
-        // fd redis [1]
-//        \app\common\lib\redis\Predis::getInstance()->sAdd(config('redis.live_game_key'), $request->fd);
+        // fd 信息放到redis的有序集合里面
+        \app\common\lib\redis\Predis::getInstance()->sAdd(config('redis.live_game_key'), $request->fd);
         var_dump($request->fd);
     }
 
@@ -184,7 +184,7 @@ class Ws {
      * @param $fd
      */
     public function onClose($ws, $fd) {
-        // fd del
+        // fd 从redis del
 //        \app\common\lib\redis\Predis::getInstance()->sRem(config('redis.live_game_key'), $fd);
         echo "clientid close:{$fd}\n";
     }

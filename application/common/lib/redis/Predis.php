@@ -61,4 +61,11 @@ class Predis{
         }
         return $this->redis->get($key);
     }
+
+    public function sAdd($key, $value)
+    {
+        return $this->redis-$this->sAdd($key, $value);
+    }
+
+
 }

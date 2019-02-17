@@ -9,7 +9,7 @@ class Live
     public function push()
     {
         //赛况入库
-        //push到直播页面
+        //push到直播页面  获取连接的用户
 
         $_POST['http_server']->push(2, 'hello-push-data');
 
