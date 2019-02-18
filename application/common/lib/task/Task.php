@@ -40,5 +40,17 @@ class Task{
         return true;
     }
 
+    /**
+     * 发送赛况数据
+     * @param $data
+     */
+    public function pushLive($data)
+    {
+        $clients = Predis::getInstance()->sMembers(config('redis.live_game_key'));
+
+        foreach ($clients as $fd) {
+            $_POST['http_server']->push($fd, json_encode($data));
+        }
+    }
 
 }

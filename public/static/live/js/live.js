@@ -40,8 +40,13 @@ function push(data) {
             html += `${data.title}`;
         }
         html += `</div>
-						<p>08:44 ${data.content}</p>
-						<p>08:44 test2</p>
+						<p>08:44 ${data.content}</p>`
+        if (data.image) {
+            html += `<p>
+							<img src="${data.image}" width="40%" />
+						</p>`
+        }
+        html += `
 					</div>
 				</div>`;
     $("#match-result").prepend(html);
