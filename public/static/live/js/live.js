@@ -29,11 +29,11 @@ function push(data) {
 
     var html = `<div class="frame">
 					<h3 class="frame-header">
-						<i class="icon iconfont icon-shijian"></i>第{$data.type}节 02：30
+						<i class="icon iconfont icon-shijian"></i>第${data.type}节 02：30
 					</h3>
 					<div class="frame-item">
 						<span class="frame-dot"></span>
-						<div class="frame-item-author">`
+						<div class="frame-item-author">`;
         if (data.logo) {
             html += `<img src="${data.logo}" width="20px" height="20px" /> ${data.title}`;
         } else {
