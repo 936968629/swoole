@@ -12,8 +12,13 @@ use app\common\lib\Redis;
 use app\common\lib\redis\Predis;
 
 class Task{
-    //异步发送短信
-    public function sendSms($data){
+    /**
+     * //异步发送短信
+     * @param $data
+     * @param $serv
+     * @return bool
+     */
+    public function sendSms($data, $serv){
         $phoneNum = $data['phone'];
         $code = $data['code'];
         try {
@@ -43,13 +48,14 @@ class Task{
     /**
      * 发送赛况数据
      * @param $data
+     * @param $serv swoole对象
      */
-    public function pushLive($data)
+    public function pushLive($data, $serv)
     {
         $clients = Predis::getInstance()->sMembers(config('redis.live_game_key'));
 
         foreach ($clients as $fd) {
-            $_POST['http_server']->push($fd, json_encode($data));
+            $serv->push($fd, json_encode($data));
         }
     }
 
