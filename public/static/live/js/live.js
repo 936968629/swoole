@@ -35,12 +35,12 @@ function push(data) {
 						<span class="frame-dot"></span>
 						<div class="frame-item-author">`
         if (data.logo) {
-            html += `<img src="{$data.logo}" width="20px" height="20px" /> {$data.title}`;
+            html += `<img src="${data.logo}" width="20px" height="20px" /> ${data.title}`;
         } else {
-            html += `{$data.title}`;
+            html += `${data.title}`;
         }
         html += `</div>
-						<p>08:44 {$data.content}</p>
+						<p>08:44 ${data.content}</p>
 						<p>08:44 test2</p>
 					</div>
 				</div>`;
