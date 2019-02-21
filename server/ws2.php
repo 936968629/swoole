@@ -28,7 +28,7 @@ class Ws {
 
         $this->ws = new swoole_websocket_server(self::HOST, self::PORT);
 
-//        $this->ws->listen(self::HOST, self::CHART_PORT, SWOOLE_SOCK_TCP);
+        $this->ws->listen(self::HOST, self::CHART_PORT, SWOOLE_SOCK_TCP);
 
         $this->ws->set(
             [
