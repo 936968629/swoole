@@ -22,9 +22,9 @@ class Chart
             'content' => $_POST['content'],
         ];
 
-        foreach ($_POST['http_server']->ports[1]->connections as $fd) {
-            $_POST['http_server']->push($fd, json_encode($data));
-        }
+//        foreach ($_POST['http_server']->ports[1]->connections as $fd) {
+//            $_POST['http_server']->push($fd, json_encode($data));
+//        }
 
         return Util::show(config('code.success'), 'success', $data);
     }
