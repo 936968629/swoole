@@ -10,7 +10,7 @@ websocket.onopen = function (evt) {
 }
 
 websocket.onmessage = function (evt) {
-    push(evt.data);
+    push2(evt.data);
     console.log('ws-server-return-data:'+evt.data);
 }
 
@@ -22,7 +22,7 @@ websocket.onerror = function (evt, e) {
     console.log('error:' + evt.data)
 }
 
-function push(data) {
+function push2(data) {
     var data = JSON.parse(data);
     var html = `<div class="comment">
 					<span>${data.user}</span>
