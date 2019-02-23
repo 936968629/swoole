@@ -19,8 +19,13 @@ class Server {
         if ($result != 1) {
             //发送报警 短信、邮件
             echo date("Ymd H:i:s")."error".PHP_EOL;
+        } else {
+
         }
     }
 }
+
+//定时器
+//swoole_timer_tick();
 
 (new Server())->port();
