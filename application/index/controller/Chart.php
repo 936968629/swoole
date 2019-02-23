@@ -13,12 +13,25 @@ class Chart
 {
     public function index()
     {
-        //1指8812 0为8811
-        foreach ($_POST['http_server']->ports[1]->connections as $fd) {
-            $_POST['http_server']->push($fd,$fd);
+        //判断是否登录
+
+        if (empty($_POST['game_id'])) {
+            return Util::show(config('code.error'), 'error');
         }
-//        foreach($_POST['http_server']->ports[1]->connections as $fd) {
-//            $_POST['http_server']->push($fd, $fd);
-//        }
+
+        if (empty($_POST['content'])) {
+            return Util::show(config('code.error'), 'error');
+        }
+
+        $data = [
+            'user' => "用户ss",
+            'content' => $_POST['content'],
+        ];
+//1指8812 0为8811
+        foreach ($_POST['http_server']->ports[1]->connections as $fd) {
+            $_POST['http_server']->push($fd, json_encode($data));
+        }
+
+        return Util::show(config('code.success'), 'success', $data);
     }
 }
