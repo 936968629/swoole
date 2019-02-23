@@ -18,7 +18,7 @@ class Chart
         }
 
         $data = [
-            'user' => "用户"."具体用户名",
+            'user' => "用户ss",
             'content' => $_POST['content'],
         ];
 
