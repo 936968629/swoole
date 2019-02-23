@@ -23,5 +23,10 @@ websocket.onerror = function (evt, e) {
 }
 
 function push(data) {
-    
+    var data = JSON.parse(data);
+    var html = `<div class="comment">
+					<span>${data.user}</span>
+					<span>${data.content}</span>
+				</div>`;
+    $("#comments").prepend(html);
 }
