@@ -13,7 +13,7 @@ class Server {
     public function port()
     {
 
-        $shell = "netstat -anp 2>/dev/null | grep ".self::PORT. " LISTEN | wc -l";
+        $shell = "netstat -anp 2>/dev/null | grep ".self::PORT. " | grep LISTEN | wc -l";
 
         $result = shell_exec($shell);
         if ($result != 1) {
