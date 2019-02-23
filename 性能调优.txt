@@ -1,0 +1,4 @@
+服务监控：
+    监听端口是否在使用：
+        netstat -anp | grep 8811
+        结合定时任务 crontab  ||  swoole定时器

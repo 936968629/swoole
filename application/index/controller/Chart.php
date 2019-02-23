@@ -34,6 +34,8 @@ class Chart
             $_POST['http_server']->push($fd, json_encode($data));
         }
 
+        //进入消息队列，保存到数据库
+
         return Util::show(config('code.success'), 'success', $data);
     }
 }
