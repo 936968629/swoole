@@ -55,7 +55,8 @@ class Ws {
      * @param $server
      */
     public function onStart($server) {
-//        swoole_set_process_name("live_master");
+        //设置主进程name
+        swoole_set_process_name("live_master");
     }
     /**
      * @param $server
@@ -84,6 +85,7 @@ class Ws {
 //            $response->end();
 //            return ;
 //        }
+
         $_SERVER  =  [];
         if(isset($request->server)) {
             foreach($request->server as $k => $v) {
@@ -215,9 +217,11 @@ class Ws {
 
         swoole_async_writefile(APP_PATH.'../runtime/log/'.date("Ym")."/".date("d")."_access.log", $logs.PHP_EOL, function($filename){
             // todo
+
         }, FILE_APPEND);
 
     }
+
 }
 
 new Ws();
