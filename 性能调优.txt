@@ -2,7 +2,7 @@
     监听端口是否在使用：
         netstat -anp | grep 8811
         结合定时任务 crontab  ||  swoole定时器
-
+        我采用crontab监听/script/monitor/server.php
 
 请求日志记录：
 
